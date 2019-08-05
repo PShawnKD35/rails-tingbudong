@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
+      post '/login', to: 'login#login'
       resources :slangs, only: [ :index, :show, :create, :update ] do
         resources :definitions, only: [ :index ]
       end
