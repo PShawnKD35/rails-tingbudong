@@ -10,10 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_05_054601) do
+ActiveRecord::Schema.define(version: 2019_08_05_055818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "definitions", force: :cascade do |t|
+    t.text "content"
+    t.bigint "slang_id"
+    t.bigint "user_id"
+    t.string "sticker_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slang_id"], name: "index_definitions_on_slang_id"
+    t.index ["user_id"], name: "index_definitions_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "definition_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["definition_id"], name: "index_likes_on_definition_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "slangs", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +53,8 @@ ActiveRecord::Schema.define(version: 2019_08_05_054601) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "definitions", "slangs"
+  add_foreign_key "definitions", "users"
+  add_foreign_key "likes", "definitions"
+  add_foreign_key "likes", "users"
 end
