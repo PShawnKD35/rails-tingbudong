@@ -4,9 +4,8 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       post '/login', to: 'login#login'
-      resources :slangs, only: [ :index, :show, :create, :update ] do
-        resources :definitions, only: [ :index ]
-      end
+      resources :user, only: [ :update ]
+      resources :slangs, only: [ :index, :show, :create, :update ]
       resources :definitions, only: [ :create, :update ] do
         post 'likes', to: "definitions#like"
       end

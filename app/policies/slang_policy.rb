@@ -9,6 +9,10 @@ class SlangPolicy < ApplicationPolicy
     true
   end
 
+  def show?
+    true
+  end
+
   def update?
     record.user == user
   end

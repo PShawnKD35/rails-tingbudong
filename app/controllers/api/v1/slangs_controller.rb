@@ -8,6 +8,11 @@ class Api::V1::SlangsController < Api::V1::BaseController
   end
   
   def show
+    @definitions = @slang.definitions
+    puts "=============="
+    p current_user
+    puts "=============="
+    @current_user_id = current_user.id if user_signed_in?
     # render json: @slang
   end
 
