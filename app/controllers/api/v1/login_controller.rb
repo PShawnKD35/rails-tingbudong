@@ -17,10 +17,16 @@ class Api::V1::LoginController < Api::V1::BaseController
   end
 
   def login
+    domain = "@tingbudong.net"
     wechat_user_info = wechat_user
     if wechat_user_info["openid"].present?
-      @user = User.find_or_create_by(wechat_id: wechat_user_info.fetch("openid"))
-      @user.update!(email: @user.id + "@tingbudong.net")
+      openid = wechat_user_info.fetch("openid")
+      @user = User.find_by(wechat_id: openid)
+      unless @user.present?
+        @user = User.new(wechat_id: openid, email: "#{openid}#{domain}")
+        @user.save!
+        @user.update!(email: "#{@user.id}#{domain}")
+      end
       @user.reload.authentication_token
       render json: {
         userId: @user.id,
