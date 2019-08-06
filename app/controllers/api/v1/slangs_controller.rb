@@ -19,7 +19,8 @@ class Api::V1::SlangsController < Api::V1::BaseController
   end
 
   def update
-    render json: @slang
+    authorize @slang
+    render json: @slang if @slang.update!(slang_params)
   end
 
   private
