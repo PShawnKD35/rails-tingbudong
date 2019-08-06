@@ -1,11 +1,11 @@
-class DefinitionPolicy < ApplicationPolicy
+class UserPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope.all
     end
   end
-
-  def like?
-    true
+  
+  def update?
+    record == user
   end
 end

@@ -1,7 +1,7 @@
 json.slang do
   json.extract! @slang, :name
   json.user @slang.user.email
-  json.definitions @denfinitions do |definition|
+  json.definitions @definitions do |definition|
     json.extract! definition, :content, :sticker_url
     json.user definition.user.email
     json.likes definition.likes.count

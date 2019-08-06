@@ -7,8 +7,8 @@ Rails.application.routes.draw do
       resources :user, only: [ :update ]
       resources :slangs, only: [ :index, :show, :create, :update ]
       resources :definitions, only: [ :create, :update ] do
-        post 'likes', to: "definitions#like"
       end
+      post 'likes', to: "definitions#like"
       delete 'likes/:id', to: "definitions#unlike"
     end
   end
