@@ -9,6 +9,10 @@ class DefinitionPolicy < ApplicationPolicy
     true
   end
 
+  def update?
+    record.user == user
+  end
+
   def like?
     true
   end
