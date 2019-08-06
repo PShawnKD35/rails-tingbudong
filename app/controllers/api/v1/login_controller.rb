@@ -20,7 +20,8 @@ class Api::V1::LoginController < Api::V1::BaseController
     wechat_user_info = wechat_user
     if wechat_user_info["openid"].present?
       @user = User.find_or_create_by(wechat_id: wechat_user_info.fetch("openid"))
-      @user.update!(email: @user.id + "@tingbudong.net")
+      @user.update!(email: "#{@user.wechat_id}@tingbudong.net")
+      @user.update!(email: "#{@user.id}@tingbudong.net")
       @user.reload.authentication_token
       render json: {
         userId: @user.id,
