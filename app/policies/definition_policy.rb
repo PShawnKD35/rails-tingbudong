@@ -5,7 +5,15 @@ class DefinitionPolicy < ApplicationPolicy
     end
   end
 
+  def create?
+    true
+  end
+
   def like?
     true
+  end
+
+  def unlike?
+    record.user == user
   end
 end

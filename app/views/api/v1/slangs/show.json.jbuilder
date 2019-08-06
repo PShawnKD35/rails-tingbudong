@@ -5,6 +5,7 @@ json.slang do
     json.extract! definition, :content, :sticker_url
     json.user definition.user.email
     json.likes definition.likes.count
-    json.user_like definition.likes.find_by(user_id: @current_user_id)
+    user_like = definition.likes.find_by(user_id: @current_user_id)
+    json.user_like_id user_like.id if user_like.present? 
   end
 end
