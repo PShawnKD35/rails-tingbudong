@@ -1,5 +1,5 @@
 class Api::V1::SlangsController < Api::V1::BaseController
-  acts_as_token_authentication_handler_for User, except: [ :index, :show ]
+  acts_as_token_authentication_handler_for User, except: [ :index ]
   before_action :set_slang, only: [:show, :update]
 
   def index
@@ -9,9 +9,7 @@ class Api::V1::SlangsController < Api::V1::BaseController
   
   def show
     @definitions = @slang.definitions
-    puts "=============="
-    p current_user
-    puts "=============="
+    authorize @slang
     @current_user_id = current_user.id if user_signed_in?
     # render json: @slang
   end
