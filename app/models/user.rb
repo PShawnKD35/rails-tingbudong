@@ -8,8 +8,7 @@ class User < ApplicationRecord
   acts_as_token_authenticatable
 
   def password_required?
-    # !self.open_id
-    false
+    !self.wechat_id
   end
   
 end
