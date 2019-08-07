@@ -24,6 +24,6 @@ class Api::V1::DefinitionsController < Api::V1::BaseController
   def unlike
     @like = Like.find(params[:id])
     authorize @like, policy_class: DefinitionPolicy
-    head :no_content if @like.destory!
+    head :no_content if @like.destroy!
   end
 end
