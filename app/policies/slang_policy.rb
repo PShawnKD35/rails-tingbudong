@@ -1,7 +1,7 @@
 class SlangPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      scope.limit(10)
     end
   end
 
