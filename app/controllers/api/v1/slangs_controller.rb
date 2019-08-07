@@ -1,9 +1,15 @@
 class Api::V1::SlangsController < Api::V1::BaseController
   acts_as_token_authentication_handler_for User, except: [ :index ]
   before_action :set_slang, only: [:show, :update]
+  skip_after_action :verify_policy_scoped, only: :index
 
   def index
-    @slangs = policy_scope(Slang)
+    if params[:name].present?
+      @slangs = Slang.where("name LIKE ?", "%#{params[:name]}%")
+    else
+      # @slangs = policy_scope(Slang)
+      @slangs = Slang.limit(10)
+    end
   end
   
   def show
