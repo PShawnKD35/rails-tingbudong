@@ -1,8 +1,8 @@
 json.slangs @slangs do |slang|
-  json.extract! slang, :name, :sticker_url
+  json.extract! slang, :id, :name, :sticker_url, :created_at
   json.user slang.user, :name, :avatar_url
   json.definitions slang.definitions.max_by(5) {|d| d.likes.count} do |definition|
-    json.extract! definition, :content
+    json.extract! definition, :id, :content, :created_at
     json.user definition.user.name
     json.likes definition.likes.count
   end
