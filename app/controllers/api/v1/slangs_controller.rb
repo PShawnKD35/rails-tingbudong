@@ -6,7 +6,9 @@ class Api::V1::SlangsController < Api::V1::BaseController
   before_action :format_time, only: [:index, :show]
 
   def index
-    if params[:name].present?
+    if params[:tag].present?
+      @slangs = Slang.tagged_with(params[:tag]).limit(10)
+    elsif params[:name].present?
       @slangs = Slang.where("name ILIKE ?", "%#{params[:name]}%")
     else
       # @slangs = policy_scope(Slang)
