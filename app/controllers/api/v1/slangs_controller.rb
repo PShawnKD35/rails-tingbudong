@@ -3,7 +3,7 @@ class Api::V1::SlangsController < Api::V1::BaseController
   skip_after_action :verify_policy_scoped, only: :index
   
   before_action :set_slang, only: [:show, :update]
-  before_action :format_time, only: [:index, :show]
+  before_action :format_time, only: [:index, :show, :add_tag]
 
   def index
     if params[:tag].present?
@@ -20,6 +20,17 @@ class Api::V1::SlangsController < Api::V1::BaseController
     @tags = ActsAsTaggableOn::Tag.most_used(10)
     authorize @tags, policy_class: SlangPolicy
     render json: @tags
+  end
+
+  def add_tag
+    args = params.require('tag').permit(:name, :slang_id)
+    puts "=================="
+    p args
+    puts "=================="
+    @slang = Slang.find(args[:slang_id])
+    authorize @slang, policy_class: SlangPolicy
+    @slang.tag_list.add(args[:name])
+    render :show, status: :created if @slang.save!
   end
   
   def show

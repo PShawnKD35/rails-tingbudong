@@ -20,4 +20,8 @@ class SlangPolicy < ApplicationPolicy
   def tags?
     true
   end
+
+  def add_tag?
+    true
+  end
 end
