@@ -1,5 +1,5 @@
 class Api::V1::SlangsController < Api::V1::BaseController
-  acts_as_token_authentication_handler_for User, except: [ :index ]
+  acts_as_token_authentication_handler_for User, except: [ :index, :tags ]
   before_action :set_slang, only: [:show, :update]
   skip_after_action :verify_policy_scoped, only: :index
 
@@ -10,6 +10,11 @@ class Api::V1::SlangsController < Api::V1::BaseController
       # @slangs = policy_scope(Slang)
       @slangs = Slang.limit(10)
     end
+  end
+
+  def tags
+    @tags = ActsAsTaggableOn::Tag.most_used(10)
+    render json: @tags
   end
   
   def show
