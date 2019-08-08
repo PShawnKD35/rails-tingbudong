@@ -24,9 +24,6 @@ class Api::V1::SlangsController < Api::V1::BaseController
 
   def add_tag
     args = params.require('tag').permit(:name, :slang_id)
-    puts "=================="
-    p args
-    puts "=================="
     @slang = Slang.find(args[:slang_id])
     authorize @slang, policy_class: SlangPolicy
     @slang.tag_list.add(args[:name])
