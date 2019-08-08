@@ -6,10 +6,10 @@ Rails.application.routes.draw do
       post '/login', to: 'login#login'
       resources :users, only: [ :update ]
       resources :slangs, only: [ :index, :show, :create, :update ]
-      resources :definitions, only: [ :create, :update ] do
-      end
+      resources :definitions, only: [ :create, :update ]
       post 'likes', to: "definitions#like"
       delete 'likes/:id', to: "definitions#unlike"
+      get '/tags', to: "slangs#tags"
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

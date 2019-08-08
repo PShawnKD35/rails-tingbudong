@@ -16,4 +16,8 @@ class SlangPolicy < ApplicationPolicy
   def update?
     record.user == user
   end
+
+  def tags?
+    true
+  end
 end
