@@ -14,6 +14,7 @@ class Api::V1::SlangsController < Api::V1::BaseController
 
   def tags
     @tags = ActsAsTaggableOn::Tag.most_used(10)
+    authorize @tags, policy_class: SlangPolicy
     render json: @tags
   end
   
