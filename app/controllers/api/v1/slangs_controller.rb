@@ -1,11 +1,13 @@
 class Api::V1::SlangsController < Api::V1::BaseController
   acts_as_token_authentication_handler_for User, except: [ :index, :tags ]
-  before_action :set_slang, only: [:show, :update]
   skip_after_action :verify_policy_scoped, only: :index
+  
+  before_action :set_slang, only: [:show, :update]
+  before_action :format_time, only: [:index, :show]
 
   def index
     if params[:name].present?
-      @slangs = Slang.where("name LIKE ?", "%#{params[:name]}%")
+      @slangs = Slang.where("name ILIKE ?", "%#{params[:name]}%")
     else
       # @slangs = policy_scope(Slang)
       @slangs = Slang.limit(10)
@@ -54,5 +56,9 @@ class Api::V1::SlangsController < Api::V1::BaseController
 
   def slang_params
     params.require(:slang).permit(:name, :sticker_url)
+  end
+
+  def format_time
+    @format_time = lambda { |time| time.strftime("%Y.%-d.%-m") }
   end
 end
