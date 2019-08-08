@@ -8,4 +8,6 @@ json.slang do
     user_like = definition.likes.find_by(user_id: @current_user_id)
     json.user_like_id user_like.id if user_like.present?
   end
+  json.regions @slang.region_list
+  json.tags @slang.tag_list
 end

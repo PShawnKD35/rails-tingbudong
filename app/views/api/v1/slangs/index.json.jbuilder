@@ -6,5 +6,7 @@ json.slangs @slangs do |slang|
     json.user definition.user.name
     json.likes definition.likes.count
   end
+  json.regions slang.region_list[0...5]
+  json.tags slang.tag_list[0..5]
   # json.tags slang.tags[0...10]
 end
