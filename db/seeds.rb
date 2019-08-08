@@ -20,11 +20,6 @@ end
 
 puts "Generating user..."
 shawn = User.create!(name: "supershawn", password: "123456", email: "shawn@peng.com", avatar_url: "https://avatars2.githubusercontent.com/u/6245208?s=40&v=4")
-
-10.times do
-
-end
-
 puts "Created user."
 
 # -------------------------
