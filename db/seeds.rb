@@ -46,15 +46,15 @@ end
 puts "Created #{Slang.count} slangs, and #{Definition.count} definitions."
 
 # sample definition for test
-puts "creating sample difeinitions and likes..."
-slang = Slang.first
-indexes = (0...10).to_a
-likes_count = 0
-indexes.each do |i|
-  definition = Definition.create!(content: "sample#{i}", user: shawn, slang: slang)
-  (0...10).to_a.sample.times do
-    Like.create!(user: shawn, definition: definition)
-    likes_count += 1
-  end
-end
-puts "#{indexes.last + 1} definitions and #{likes_count} likes created"
+# puts "creating sample difeinitions and likes..."
+# slang = Slang.first
+# indexes = (0...10).to_a
+# likes_count = 0
+# indexes.each do |i|
+#   definition = Definition.create!(content: "sample#{i}", user: shawn, slang: slang)
+#   (0...10).to_a.sample.times do
+#     Like.create!(user: shawn, definition: definition)
+#     likes_count += 1
+#   end
+# end
+# puts "#{indexes.last + 1} definitions and #{likes_count} likes created"
