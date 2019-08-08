@@ -47,6 +47,6 @@ class Api::V1::SlangsController < Api::V1::BaseController
   end
 
   def slang_params
-    params.require(:slang).permit(:name)
+    params.require(:slang).permit(:name, :sticker_url)
   end
 end
