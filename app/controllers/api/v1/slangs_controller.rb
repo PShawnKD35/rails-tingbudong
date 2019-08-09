@@ -23,10 +23,11 @@ class Api::V1::SlangsController < Api::V1::BaseController
   end
 
   def add_tag
-    args = params.require('tag').permit(:name, :slang_id)
+    args = params.require('tag').permit(:tag_name, :dialect_name, :slang_id)
     @slang = Slang.find(args[:slang_id])
     authorize @slang, policy_class: SlangPolicy
-    @slang.tag_list.add(args[:name])
+    @slang.tag_list.add(args[:tag_name]) if args[:tag_name].present?
+    @slang.dialect_list.add(args[:dialect_name]) if args[:dialect_name].present?
     render :show, status: :created if @slang.save!
   end
   

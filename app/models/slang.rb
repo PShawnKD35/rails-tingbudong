@@ -3,5 +3,5 @@ class Slang < ApplicationRecord
   has_many :definitions
   has_many :users, through: :definitions
 
-  acts_as_taggable_on :tags, :regions
+  acts_as_taggable_on :tags, :dialects
 end
