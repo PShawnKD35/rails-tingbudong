@@ -7,12 +7,12 @@ class Api::V1::SlangsController < Api::V1::BaseController
 
   def index
     if params[:tag].present?
-      @slangs = Slang.tagged_with(params[:tag]).limit(10)
+      @slangs = Slang.tagged_with(params[:tag]).order(updated_at: :desc).limit(10)
     elsif params[:name].present?
       @slangs = Slang.where("name ILIKE ?", "%#{params[:name]}%")
     else
       # @slangs = policy_scope(Slang)
-      @slangs = Slang.limit(10)
+      @slangs = Slang.order(updated_at: :desc).limit(10)
     end
   end
 
