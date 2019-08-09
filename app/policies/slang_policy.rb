@@ -17,11 +17,19 @@ class SlangPolicy < ApplicationPolicy
     record.user == user
   end
 
+  def destroy?
+    record.user == user
+  end
+
   def tags?
     true
   end
 
   def add_tag?
+    true
+  end
+
+  def remove_tag?
     true
   end
 end

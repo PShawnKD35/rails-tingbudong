@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       delete 'likes/:id', to: "definitions#unlike"
       get '/tags', to: "slangs#tags"
       post '/tags', to: "slangs#add_tag"
+      delete '/tags', to: "slangs#remove_tag"
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
