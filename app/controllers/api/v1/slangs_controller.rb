@@ -80,7 +80,7 @@ class Api::V1::SlangsController < Api::V1::BaseController
   end
 
   def format_time
-    @format_time = lambda { |time| time.strftime("%Y.%-d.%-m") }
+    @format_time = lambda { |time| time.strftime("%Y.%-m.%-d") }
   end
 
   def set_tag_params
