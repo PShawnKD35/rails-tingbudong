@@ -37,7 +37,7 @@ class Api::V1::SlangsController < Api::V1::BaseController
   end
   
   def show
-    @definitions = @slang.definitions
+    # @definitions = @slang.definitions
     # puts "=========="
     # p user_signed_in?
     # p current_user
