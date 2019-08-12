@@ -1,4 +1,7 @@
-json.user @user
+json.user do
+  json.extract! @user, :name, :avatar_url, :email
+  json.created_at @format_time.call(@user.created_at)
+end
 json.slangs @user.slangs do |slang|
   json.extract! slang, :id, :name, :sticker_url
   json.created_at @format_time.call(slang.created_at)
