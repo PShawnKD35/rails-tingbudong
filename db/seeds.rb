@@ -72,11 +72,11 @@ f5 = 'db/taiwan.csv'
 f6 = 'db/sichuan.csv'
 
 seed_words(f1, "东北话")
-seed_words(f1, "闽南话")
-seed_words(f1, "广东话")
-seed_words(f1, "客家话")
-seed_words(f1, "台语话")
-seed_words(f1, "四川话")
+seed_words(f2, "闽南话")
+seed_words(f3, "广东话")
+seed_words(f4, "客家话")
+seed_words(f5, "台语话")
+seed_words(f6, "四川话")
 
 
 
