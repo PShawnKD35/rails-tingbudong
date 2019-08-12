@@ -37,7 +37,7 @@ class Api::V1::SlangsController < Api::V1::BaseController
   end
   
   def show
-    @definitions = @slang.definitions
+    # @definitions = @slang.definitions
     # puts "=========="
     # p user_signed_in?
     # p current_user
@@ -77,10 +77,6 @@ class Api::V1::SlangsController < Api::V1::BaseController
 
   def slang_params
     params.require(:slang).permit(:name, :sticker_url)
-  end
-
-  def format_time
-    @format_time = lambda { |time| time.strftime("%Y.%-m.%-d") }
   end
 
   def set_tag_params

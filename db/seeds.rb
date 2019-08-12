@@ -19,7 +19,7 @@ if Rails.env.development?
 end
 
 puts "Generating user..."
-SHAWN = User.create!(name: "supershawn", password: "123456", email: "shawn@peng.com", avatar_url: "https://avatars2.githubusercontent.com/u/6245208?s=40&v=4")
+SHAWN = User.create!(name: "supershawn", password: "123456", email: "shawn@peng.com", avatar_url: "https://img18.3lian.com/d/file/201712/19/12d3c5f4d8632964c83a08563e1f1160.png")
 # paul = User.create!(name: "paul", password: "543210", email: "paul@hman.com", avatar_url: "https://omohikane.com/wp-content/uploads/2017/02/result.png")
 puts "Created user."
 
