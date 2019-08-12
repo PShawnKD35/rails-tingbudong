@@ -31,7 +31,7 @@ class Api::V1::LoginController < Api::V1::BaseController
       render json: {
         userId: @user.id,
         email: @user.email,
-        userToken: @user.authentication_token
+        userToken: @user.authentication_token,
         isNew: @user.is_new
       }
     else
