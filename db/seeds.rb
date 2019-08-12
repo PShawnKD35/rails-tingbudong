@@ -33,15 +33,19 @@ html_doc = Nokogiri::HTML(html_file)
 
 puts "Creating slangs and definitions..."
 html_doc.search('.tile').each do |element|
-  slang = Slang.create!(
-  name: element.search('h1.title').text,
-  user: shawn)
+  title = element.search('h1.title').text
+  puts title
+  unless Slang.exists?(name: title)
+    slang = Slang.create!(
+      name: element.search('h1.title').text,
+    user: shawn)
 
-  Definition.create!(
-  content: element.search('.brax-render').text,
-  slang: slang,
-  user: shawn
-  )
+    Definition.create!(
+      content: element.search('.brax-render').text,
+      slang: slang,
+      user: shawn
+    )
+  end
 end
 puts "Created #{Slang.count} slangs, and #{Definition.count} definitions."
 
