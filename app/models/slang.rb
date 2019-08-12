@@ -5,5 +5,5 @@ class Slang < ApplicationRecord
 
   acts_as_taggable_on :tags, :dialects
 
-  validates :name, presence: true, uniqueness: true, allow_blank: false
+  validates :name, presence: true, allow_blank: false
 end

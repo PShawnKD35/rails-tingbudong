@@ -1,8 +1,8 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
+
 # Examples:
-#
+
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
@@ -19,11 +19,12 @@ if Rails.env.development?
 end
 
 puts "Generating user..."
-shawn = User.create!(name: "supershawn", password: "123456", email: "shawn@peng.com", avatar_url: "https://avatars2.githubusercontent.com/u/6245208?s=40&v=4")
+SHAWN = User.create!(name: "supershawn", password: "123456", email: "shawn@peng.com", avatar_url: "https://avatars2.githubusercontent.com/u/6245208?s=40&v=4")
+# paul = User.create!(name: "paul", password: "543210", email: "paul@hman.com", avatar_url: "https://omohikane.com/wp-content/uploads/2017/02/result.png")
 puts "Created user."
 
 # -------------------------
-# word definitions
+# jiki slangs
 # -------------------------
 word = 'word'
 text = Rails.root.join('db','jikipedia.html')
@@ -35,15 +36,49 @@ puts "Creating slangs and definitions..."
 html_doc.search('.tile').each do |element|
   slang = Slang.create!(
   name: element.search('h1.title').text,
-  user: shawn)
+  user: SHAWN)
+
 
   Definition.create!(
   content: element.search('.brax-render').text,
   slang: slang,
-  user: shawn
-  )
+  user: SHAWN)
 end
 puts "Created #{Slang.count} slangs, and #{Definition.count} definitions."
+
+
+# ----------------
+# difang slangs
+# ----------------
+
+require 'csv'
+
+def seed_words(filepath, name)
+  CSV.foreach(filepath) do |row|
+    next if row[0].blank?
+    slang = Slang.create!(name: row[0], user: SHAWN)
+    slang.dialect_list.add(name)
+
+    Definition.create!(content: row[1], slang: slang, user: SHAWN)
+  end
+  puts "Created #{Slang.count} slangs, and #{Definition.count} definitions."
+end
+
+f1 = 'db/dongbei.csv'
+f2 = 'db/fujian.csv'
+f3 = 'db/guangdong.csv'
+f4 = 'db/hakka.csv'
+f5 = 'db/taiwan.csv'
+f6 = 'db/sichuan.csv'
+
+seed_words(f1, "东北话")
+seed_words(f1, "闽南话")
+seed_words(f1, "广东话")
+seed_words(f1, "客家话")
+seed_words(f1, "台语话")
+seed_words(f1, "四川话")
+
+
 
 # sample definition for test
 # puts "creating sample difeinitions and likes..."
