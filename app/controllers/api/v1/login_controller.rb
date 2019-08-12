@@ -32,6 +32,7 @@ class Api::V1::LoginController < Api::V1::BaseController
         userId: @user.id,
         email: @user.email,
         userToken: @user.authentication_token
+        isNew: @user.is_new
       }
     else
       render json: wechat_user_info

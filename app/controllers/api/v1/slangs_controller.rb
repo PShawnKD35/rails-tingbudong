@@ -79,10 +79,6 @@ class Api::V1::SlangsController < Api::V1::BaseController
     params.require(:slang).permit(:name, :sticker_url)
   end
 
-  def format_time
-    @format_time = lambda { |time| time.strftime("%Y.%-m.%-d") }
-  end
-
   def set_tag_params
     @args = params.require('tag').permit(:tag_name, :dialect_name, :slang_id)
     @slang = Slang.find(@args[:slang_id])

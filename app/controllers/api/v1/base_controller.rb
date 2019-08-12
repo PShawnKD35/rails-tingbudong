@@ -28,4 +28,9 @@ class Api::V1::BaseController < ActionController::API
     end
     render json: response, status: :internal_server_error
   end
+
+  # output time to human readable format
+  def format_time
+    @format_time = lambda { |time| time.strftime("%Y.%-m.%-d") }
+  end
 end
