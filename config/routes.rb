@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       get '/tags', to: "slangs#tags"
       post '/tags', to: "slangs#add_tag"
       delete '/tags', to: "slangs#remove_tag"
+      resources :favorites, only: [ :index, :create ]
+      delete '/favorites', to: "favorites#destroy"
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
