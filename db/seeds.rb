@@ -20,7 +20,6 @@ end
 
 puts "Generating user..."
 SHAWN = User.create!(name: "supershawn", password: "123456", email: "shawn@peng.com", avatar_url: "https://avatars2.githubusercontent.com/u/6245208?s=40&v=4")
-# paul = User.create!(name: "paul", password: "543210", email: "paul@hman.com", avatar_url: "https://omohikane.com/wp-content/uploads/2017/02/result.png")
 puts "Created user."
 
 # -------------------------
@@ -37,6 +36,14 @@ html_doc.search('.tile').each do |element|
   slang = Slang.create!(
   name: element.search('h1.title').text,
   user: SHAWN)
+# puts "Creating slangs and definitions..."
+# html_doc.search('.tile').each do |element|
+#   title = element.search('h1.title').text,
+#   puts title
+#   unless Slang.exists?(name: title)
+#     slang = Slang.create!(
+#       name: element.search('h1.title').text,
+#     user: SHAWN)
 
 
   Definition.create!(
@@ -69,7 +76,7 @@ f2 = 'db/fujian.csv'
 f3 = 'db/guangdong.csv'
 f4 = 'db/hakka.csv'
 f5 = 'db/taiwan.csv'
-f6 = 'db/sichuan.csv'
+f6 = 'db/sichuan .csv'
 
 seed_words(f1, "东北话")
 seed_words(f2, "闽南话")
