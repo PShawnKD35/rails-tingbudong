@@ -19,7 +19,11 @@ if Rails.env.development?
 end
 
 puts "Generating user..."
-SHAWN = User.create!(name: "supershawn", password: "123456", email: "shawn@peng.com", avatar_url: "https://avatars2.githubusercontent.com/u/6245208?s=40&v=4")
+if User.find_by_name "supershawn"
+  SHAWN = User.find_by_name "supershawn"
+else
+  SHAWN = User.create!(name: "supershawn", password: "123456", email: "shawn@peng.com", avatar_url: "https://avatars2.githubusercontent.com/u/6245208?s=40&v=4")
+end
 puts "Created user."
 
 # -------------------------
@@ -63,13 +67,12 @@ require 'csv'
 def seed_words(filepath, name)
   CSV.foreach(filepath) do |row|
     next if row[0].blank?
-    unless Slang.exists?
-    slang = Slang.create!(name: row[0], user: SHAWN)
+    slang = Slang.find_or_create_by(name: row[0], user: SHAWN)
+
     slang.dialect_list.add(name)
 
     # next if row[1].exists?
-    Definition.create!(content: row[1], slang: slang, user: SHAWN)
-    end
+    definition = Definition.find_or_create_by(content: "在#{name}的意思： #{row[1]}", slang: slang, user: SHAWN)
   end
   puts "Created #{Slang.count} slangs, and #{Definition.count} definitions."
 end
