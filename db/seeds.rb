@@ -31,25 +31,26 @@ text = Rails.root.join('db','jikipedia.html')
 html_file = File.open(text).read
 html_doc = Nokogiri::HTML(html_file)
 
-puts "Creating slangs and definitions..."
-html_doc.search('.tile').each do |element|
-  slang = Slang.create!(
-  name: element.search('h1.title').text,
-  user: SHAWN)
 # puts "Creating slangs and definitions..."
 # html_doc.search('.tile').each do |element|
-#   title = element.search('h1.title').text,
-#   puts title
-#   unless Slang.exists?(name: title)
-#     slang = Slang.create!(
-#       name: element.search('h1.title').text,
-#     user: SHAWN)
+#   slang = Slang.create!(
+#   name: element.search('h1.title').text,
+#   user: SHAWN)
 
+# puts "Creating slangs and definitions..."
+html_doc.search('.tile').each do |element|
+  title = element.search('h1.title').text
+  puts title
+  unless Slang.exists?(name: title)
+    slang = Slang.create!(
+      name: element.search('h1.title').text,
+    user: SHAWN)
 
   Definition.create!(
   content: element.search('.brax-render').text,
   slang: slang,
   user: SHAWN)
+  end
 end
 puts "Created #{Slang.count} slangs, and #{Definition.count} definitions."
 
@@ -57,16 +58,18 @@ puts "Created #{Slang.count} slangs, and #{Definition.count} definitions."
 # ----------------
 # difang slangs
 # ----------------
-
 require 'csv'
 
 def seed_words(filepath, name)
   CSV.foreach(filepath) do |row|
     next if row[0].blank?
+    unless Slang.exists?
     slang = Slang.create!(name: row[0], user: SHAWN)
     slang.dialect_list.add(name)
 
+    # next if row[1].exists?
     Definition.create!(content: row[1], slang: slang, user: SHAWN)
+    end
   end
   puts "Created #{Slang.count} slangs, and #{Definition.count} definitions."
 end
