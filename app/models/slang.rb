@@ -7,11 +7,11 @@ class Slang < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true, allow_blank: false
 
-  before_save :update_pinyin, unless: Proc.new { |slang| Slang.find(slang.id).name == slang.name }
+  before_save :update_pinyin, if: :name_changed?
 
   private
 
   def update_pinyin
-    self.pinyin = PinYin.of_string(self.name, :unicode).join(' ')
+    self.pinyin = PinYin.of_string(name, :unicode).join(' ')
   end
 end
