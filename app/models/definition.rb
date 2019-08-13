@@ -4,5 +4,5 @@ class Definition < ApplicationRecord
   has_many :likes
 
   validates :slang, uniqueness: { scope: :user }
-  # validates :content, presence: true, allow_blank: false, length: {minimum: 1}
+  validates :content, presence: true, allow_blank: false, length: {minimum: 1}
 end
