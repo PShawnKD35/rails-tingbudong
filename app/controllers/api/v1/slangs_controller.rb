@@ -46,6 +46,7 @@ class Api::V1::SlangsController < Api::V1::BaseController
       # authorize @slang
       # authorize @definitions
       @current_user_id = current_user.id
+      @favorited = current_user.favorited?(@slang)
       # authorize @current_user_id
     # end
     # render json: @slang

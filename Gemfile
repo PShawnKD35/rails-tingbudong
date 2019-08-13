@@ -21,6 +21,7 @@ gem 'pundit'
 gem 'simple_token_authentication'
 gem 'rest-client'
 gem 'acts-as-taggable-on', '~> 6.0'
+gem 'acts_as_favoritor'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
