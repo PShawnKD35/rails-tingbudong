@@ -14,6 +14,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     format_time
     set_user
     authorize @user
+    @show_slang = true
   end
   
   private

@@ -1,0 +1,1 @@
+json.slangs @slangs, partial: 'api/v1/slangs/slang', as: :slang

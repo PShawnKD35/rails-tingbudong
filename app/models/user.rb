@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :slangs
   has_many :likes
   acts_as_token_authenticatable
+  acts_as_favoritor
 
   def password_required?
     !self.wechat_id

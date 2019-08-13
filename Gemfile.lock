@@ -44,6 +44,8 @@ GEM
       tzinfo (~> 1.1)
     acts-as-taggable-on (6.0.0)
       activerecord (~> 5.0)
+    acts_as_favoritor (4.0.2)
+      activerecord (>= 5.0)
     arel (9.0.0)
     autoprefixer-rails (9.6.1)
       execjs
@@ -159,6 +161,9 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rmmseg-cpp-new (0.3.1)
+    ruby-pinyin (0.5.0)
+      rmmseg-cpp-new (~> 0.3.1)
     sassc (2.0.1)
       ffi (~> 1.9)
       rake
@@ -216,6 +221,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on (~> 6.0)
+  acts_as_favoritor
   autoprefixer-rails
   bootsnap
   devise
@@ -231,6 +237,7 @@ DEPENDENCIES
   rails (= 5.2.3)
   redis
   rest-client
+  ruby-pinyin
   sassc-rails
   simple_form
   simple_token_authentication
