@@ -161,6 +161,9 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rmmseg-cpp-new (0.3.1)
+    ruby-pinyin (0.5.0)
+      rmmseg-cpp-new (~> 0.3.1)
     sassc (2.0.1)
       ffi (~> 1.9)
       rake
@@ -234,6 +237,7 @@ DEPENDENCIES
   rails (= 5.2.3)
   redis
   rest-client
+  ruby-pinyin
   sassc-rails
   simple_form
   simple_token_authentication
