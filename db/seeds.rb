@@ -19,11 +19,16 @@ if Rails.env.development?
 end
 
 puts "Generating user..."
+<<<<<<< HEAD
 if User.find_by_name "supershawn"
   SHAWN = User.find_by_name "supershawn"
 else
   SHAWN = User.create!(name: "supershawn", password: "123456", email: "shawn@peng.com", avatar_url: "https://avatars2.githubusercontent.com/u/6245208?s=40&v=4")
 end
+=======
+SHAWN = User.create!(name: "supershawn", password: "123456", email: "shawn@peng.com", avatar_url: "https://img18.3lian.com/d/file/201712/19/12d3c5f4d8632964c83a08563e1f1160.png")
+# paul = User.create!(name: "paul", password: "543210", email: "paul@hman.com", avatar_url: "https://omohikane.com/wp-content/uploads/2017/02/result.png")
+>>>>>>> deee359e9bc5f66f9bbfcd5e2529e5958d4833ae
 puts "Created user."
 
 # -------------------------
@@ -42,6 +47,7 @@ html_doc = Nokogiri::HTML(html_file)
 #   user: SHAWN)
 
 # puts "Creating slangs and definitions..."
+puts "Creating slangs and definitions..."
 html_doc.search('.tile').each do |element|
   title = element.search('h1.title').text
   # puts title
