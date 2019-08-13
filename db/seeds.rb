@@ -44,7 +44,7 @@ html_doc = Nokogiri::HTML(html_file)
 # puts "Creating slangs and definitions..."
 html_doc.search('.tile').each do |element|
   title = element.search('h1.title').text
-  puts title
+  # puts title
   unless Slang.exists?(name: title)
     slang = Slang.create!(
       name: element.search('h1.title').text,
@@ -68,7 +68,7 @@ def seed_words(filepath, name)
   CSV.foreach(filepath) do |row|
     next if row[0].blank?
     slang = Slang.find_or_create_by(name: row[0], user: SHAWN)
-
+    puts row[0]
     slang.dialect_list.add(name)
 
     # next if row[1].exists?

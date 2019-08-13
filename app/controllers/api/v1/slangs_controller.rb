@@ -24,7 +24,7 @@ class Api::V1::SlangsController < Api::V1::BaseController
 
   def add_tag
     set_tag_params
-    @slang.tag_list.add(@args[:tag_name]) if @args[:tag_name].present?
+    @slang.tag_list.add(@args[:tag_name], parse: true) if @args[:tag_name].present?
     @slang.dialect_list.add(@args[:dialect_name]) if @args[:dialect_name].present?
     render :show, status: :created if @slang.save!
   end
@@ -37,7 +37,7 @@ class Api::V1::SlangsController < Api::V1::BaseController
   end
   
   def show
-    @definitions = @slang.definitions
+    # @definitions = @slang.definitions
     # puts "=========="
     # p user_signed_in?
     # p current_user
@@ -77,10 +77,6 @@ class Api::V1::SlangsController < Api::V1::BaseController
 
   def slang_params
     params.require(:slang).permit(:name, :sticker_url)
-  end
-
-  def format_time
-    @format_time = lambda { |time| time.strftime("%Y.%-m.%-d") }
   end
 
   def set_tag_params

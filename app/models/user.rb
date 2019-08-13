@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :definitions
   has_many :slangs
+  has_many :likes
   acts_as_token_authenticatable
 
   def password_required?
