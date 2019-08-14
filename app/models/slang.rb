@@ -13,7 +13,7 @@ class Slang < ApplicationRecord
   private
 
   def update_pinyin
-    if /[\u4e00-\u9fa5]/.match?(name)
+    if name.match?(/[\u4e00-\u9fa5]/)
       self.pinyin = PinYin.sentence(name, :unicode)
     else
       self.pinyin = ""
