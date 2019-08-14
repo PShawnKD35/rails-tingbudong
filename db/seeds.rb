@@ -1,8 +1,8 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
+
 # Examples:
-#
+
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
@@ -19,11 +19,15 @@ if Rails.env.development?
 end
 
 puts "Generating user..."
-shawn = User.create!(name: "supershawn", password: "123456", email: "shawn@peng.com", avatar_url: "https://img18.3lian.com/d/file/201712/19/12d3c5f4d8632964c83a08563e1f1160.png")
+if User.find_by_name "supershawn"
+  SHAWN = User.find_by_name "supershawn"
+else
+  SHAWN = User.create!(name: "supershawn", password: "123456", email: "shawn@peng.com", avatar_url: "https://omohikane.com/wp-content/uploads/2017/02/result.png")
+end
 puts "Created user."
 
 # -------------------------
-# word definitions
+# jiki slangs
 # -------------------------
 word = 'word'
 text = Rails.root.join('db','jikipedia.html')
@@ -31,23 +35,64 @@ text = Rails.root.join('db','jikipedia.html')
 html_file = File.open(text).read
 html_doc = Nokogiri::HTML(html_file)
 
+# puts "Creating slangs and definitions..."
+# html_doc.search('.tile').each do |element|
+#   slang = Slang.create!(
+#   name: element.search('h1.title').text,
+#   user: SHAWN)
+
+# puts "Creating slangs and definitions..."
 puts "Creating slangs and definitions..."
 html_doc.search('.tile').each do |element|
   title = element.search('h1.title').text
-  puts title
+  # puts title
   unless Slang.exists?(name: title)
     slang = Slang.create!(
       name: element.search('h1.title').text,
-    user: shawn)
+    user: SHAWN)
 
-    Definition.create!(
-      content: element.search('.brax-render').text,
-      slang: slang,
-      user: shawn
-    )
+  Definition.create!(
+  content: element.search('.brax-render').text,
+  slang: slang,
+  user: SHAWN)
   end
 end
 puts "Created #{Slang.count} slangs, and #{Definition.count} definitions."
+
+
+# ----------------
+# difang slangs
+# ----------------
+require 'csv'
+
+def seed_words(filepath, name)
+  CSV.foreach(filepath) do |row|
+    next if row[0].blank?
+    slang = Slang.find_or_create_by(name: row[0], user: SHAWN)
+    puts row[0]
+    slang.dialect_list.add(name)
+
+    # next if row[1].exists?
+    definition = Definition.find_or_create_by(content: "在#{name}的意思： #{row[1]}", slang: slang, user: SHAWN)
+  end
+  puts "Created #{Slang.count} slangs, and #{Definition.count} definitions."
+end
+
+f1 = 'db/dongbei.csv'
+f2 = 'db/fujian.csv'
+f3 = 'db/guangdong.csv'
+f4 = 'db/hakka.csv'
+f5 = 'db/taiwan.csv'
+f6 = 'db/sichuan .csv'
+
+seed_words(f1, "东北话")
+seed_words(f2, "闽南话")
+seed_words(f3, "广东话")
+seed_words(f4, "客家话")
+seed_words(f5, "台语话")
+seed_words(f6, "四川话")
+
+
 
 # sample definition for test
 # puts "creating sample difeinitions and likes..."
