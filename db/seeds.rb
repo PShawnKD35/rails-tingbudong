@@ -35,29 +35,23 @@ text = Rails.root.join('db','jikipedia.html')
 html_file = File.open(text).read
 html_doc = Nokogiri::HTML(html_file)
 
-# puts "Creating slangs and definitions..."
-# html_doc.search('.tile').each do |element|
-#   slang = Slang.create!(
-#   name: element.search('h1.title').text,
-#   user: SHAWN)
 
-# puts "Creating slangs and definitions..."
 puts "Creating slangs and definitions..."
 html_doc.search('.tile').each do |element|
   title = element.search('h1.title').text
   # puts title
   unless Slang.exists?(name: title)
     slang = Slang.create!(
-      name: element.search('h1.title').text,
+    name: element.search('h1.title').text,
     user: SHAWN)
 
   Definition.create!(
-  content: element.search('.brax-render').text,
-  slang: slang,
-  user: SHAWN)
+    content: element.search('.brax-render').text,
+    slang: slang,
+    user: SHAWN)
   end
 end
-puts "Created #{Slang.count} slangs, and #{Definition.count} definitions."
+puts "Jikipedia html created #{Slang.count} slangs, and #{Definition.count} definitions."
 
 
 # ----------------
@@ -69,13 +63,12 @@ def seed_words(filepath, name)
   CSV.foreach(filepath) do |row|
     next if row[0].blank?
     slang = Slang.find_or_create_by(name: row[0], user: SHAWN)
-    puts row[0]
     slang.dialect_list.add(name)
 
     # next if row[1].exists?
     definition = Definition.find_or_create_by(content: "在#{name}的意思： #{row[1]}", slang: slang, user: SHAWN)
   end
-  puts "Created #{Slang.count} slangs, and #{Definition.count} definitions."
+  puts "CSVs created #{Slang.count} slangs, and #{Definition.count} definitions."
 end
 
 f1 = 'db/dongbei.csv'
@@ -91,6 +84,20 @@ seed_words(f3, "广东话")
 seed_words(f4, "客家话")
 seed_words(f5, "台语话")
 seed_words(f6, "四川话")
+
+# ---------------------
+# Jkikpedia
+# ---------------------
+
+
+CSV.foreach('db/jikipedia.csv') do |row|
+  next if row[0].blank?
+  slang = Slang.find_or_create_by(name: row[0], user: SHAWN)
+
+  definition = Definition.find_or_create_by(content: row[1], slang: slang, user: SHAWN)
+end
+  puts "Jikipedia created #{Slang.count} slangs, and #{Definition.count} definitions."
+
 
 
 
