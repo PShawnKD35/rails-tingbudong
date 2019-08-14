@@ -5,6 +5,7 @@ class Api::V1::FavoritesController < Api::V1::BaseController
   def index
     format_time
     @slangs = current_user.favorited_by_type('Slang')
+    render 'api/v1/slangs/index.json.jbuilder'  # Skip the favorites index for now
   end
 
   def create
