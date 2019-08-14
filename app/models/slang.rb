@@ -8,17 +8,17 @@ class Slang < ApplicationRecord
   validates :name, presence: true, uniqueness: true, allow_blank: false
   validate :validate_tag
 
-  before_save :update_pinyin, if: :name_changed?
+  before_save :update_pinyin!, if: :name_changed?
 
-  private
-
-  def update_pinyin
+  def update_pinyin!
     if name.match?(/[\u4e00-\u9fa5]/)
       self.pinyin = PinYin.sentence(name, :unicode)
     else
       self.pinyin = ""
     end
   end
+  
+  private
 
   def validate_tag
     max_tags = 20
