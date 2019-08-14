@@ -10,8 +10,8 @@ require 'nokogiri'
 require 'open-uri'
 
 
-puts "Destructing..."
 if Rails.env.development?
+  puts "Destructing..."
   Like.destroy_all
   Definition.destroy_all
   Slang.destroy_all

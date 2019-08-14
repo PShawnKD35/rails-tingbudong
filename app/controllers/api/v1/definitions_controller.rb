@@ -15,7 +15,7 @@ class Api::V1::DefinitionsController < Api::V1::BaseController
   end
 
   def destroy
-    authorize
+    authorize @definition
     head :no_content if @definition.destroy!
   end
 
