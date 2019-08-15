@@ -1,5 +1,6 @@
 class Api::V1::SlangsController < Api::V1::BaseController
-  acts_as_token_authentication_handler_for User, except: [ :index, :tags ]
+  acts_as_token_authentication_handler_for User, except: [ :index, :tags, :show ]
+  acts_as_token_authentication_handler_for User, only: [:show], fallback: :none
   skip_after_action :verify_policy_scoped, only: :index
   
   before_action :set_slang, only: [:show, :update, :destroy]
@@ -37,19 +38,12 @@ class Api::V1::SlangsController < Api::V1::BaseController
   end
   
   def show
-    # @definitions = @slang.definitions
-    # puts "=========="
-    # p user_signed_in?
-    # p current_user
-    # puts "=========="
-    # if user_signed_in?
-      # authorize @slang
-      # authorize @definitions
+    if user_signed_in?
       @current_user_id = current_user.id
       @favorited = current_user.favorited?(@slang)
-      # authorize @current_user_id
-    # end
-    # render json: @slang
+    else
+      @favorited = false
+    end
   end
 
   def create
@@ -72,7 +66,7 @@ class Api::V1::SlangsController < Api::V1::BaseController
   private
   
   def set_slang
-    @slang = Slang.find(params[:id])
+    @slang = Slang.includes(definitions: :likes).find(params[:id]) # Important, so that it did only 1 SQL query
     authorize @slang
   end
 
