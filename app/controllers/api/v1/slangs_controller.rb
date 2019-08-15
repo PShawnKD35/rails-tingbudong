@@ -38,12 +38,8 @@ class Api::V1::SlangsController < Api::V1::BaseController
   end
   
   def show
-    if user_signed_in?
-      @current_user_id = current_user.id
-      @favorited = current_user.favorited?(@slang)
-    else
-      @favorited = false
-    end
+    @current_user = current_user if user_signed_in?
+    
   end
 
   def create
