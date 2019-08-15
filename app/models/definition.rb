@@ -5,5 +5,5 @@ class Definition < ApplicationRecord
 
 
   validates :slang, uniqueness: { scope: :user, message: "Only one definition is allowed for each slang per user" }
-  validates :content, presence: true, allow_blank: false, length: {minimum: 1}
+  validates :content, presence: true, allow_blank: false, length: {minimum: 1}, uniqueness: {scope: :slang, message: "Can't create repetitive definition"}
 end

@@ -18,10 +18,9 @@ if Rails.env.development?
 end
 
 puts "Generating user..."
-if User.find_by_name "supershawn"
-  SHAWN = User.find_by_name "supershawn"
-else
-  SHAWN = User.create!(name: "supershawn", password: "123456", email: "shawn@peng.com", avatar_url: "https://omohikane.com/wp-content/uploads/2017/02/result.png")
+PAUL = User.find_by_name "Paulina"
+if PAUL.nil?
+  PAUL = User.create!(name: "Paulina", password: "123456", email: "paulina@tingbudong.net", avatar_url: "https://omohikane.com/wp-content/uploads/2017/02/result.png")
 end
 puts "Created user."
 
@@ -49,13 +48,13 @@ html_doc.search('.tile').each do |element|
 
   slang = Slang.create!(
     name: element.search('h1.title').text,
-    user: SHAWN
+    user: PAUL
   )
 
   Definition.create!(
     content: element.search('.brax-render').text,
     slang: slang,
-    user: SHAWN
+    user: PAUL
   )
 end
 puts "Created #{Slang.count} slangs, and #{Definition.count} definitions."
@@ -69,13 +68,19 @@ def seed_words(filepath, name)
   CSV.foreach(filepath) do |row|
     next if row[0].blank?
 
-    slang = Slang.find_or_create_by(name: row[0], user: SHAWN)
+    slang = Slang.find_by(name: row[0], user: PAUL)
+    if slang.nil?
+      slang = Slang.find_or_create_by(name: row[0], user: PAUL)
+      content_to_write = row[1]
+    else
+      content_to_write = "#{name}：#{row[1]}"
+    end
     puts row[0]
     slang.dialect_list.add(name)
     slang.save
 
     # next if row[1].exists?
-    definition = Definition.find_or_create_by(content: "在#{name}的意思： #{row[1]}", slang: slang, user: SHAWN)
+    definition = Definition.find_or_create_by(content: content_to_write, slang: slang, user: PAUL)
   end
   puts "Created #{Slang.count} slangs, and #{Definition.count} definitions."
 end
@@ -91,7 +96,7 @@ seed_words(f1, "东北话")
 seed_words(f2, "闽南话")
 seed_words(f3, "广东话")
 seed_words(f4, "客家话")
-seed_words(f5, "台语话")
+seed_words(f5, "台语")
 seed_words(f6, "四川话")
 
 # sample definition for test

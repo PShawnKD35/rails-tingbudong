@@ -61,7 +61,7 @@ class Api::V1::SlangsController < Api::V1::BaseController
 
   def update
     authorize @slang
-    render json: @slang if @slang.update!(slang_params)
+    render json: @slang if @slang.update!(current_user == @slang.user ? slang_params : slang_params_others)
   end
 
   def destroy
@@ -78,6 +78,10 @@ class Api::V1::SlangsController < Api::V1::BaseController
 
   def slang_params
     params.require(:slang).permit(:name, :sticker_url)
+  end
+
+  def slang_params_others
+    params.require(:slang).permit(:sticker_url)
   end
 
   def set_tag_params

@@ -14,7 +14,7 @@ class SlangPolicy < ApplicationPolicy
   end
 
   def update?
-    record.user == user
+    true
   end
 
   def destroy?
