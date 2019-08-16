@@ -10,7 +10,7 @@ class Api::V1::SlangsController < Api::V1::BaseController
     if params[:tag].present?
       @slangs = Slang.tagged_with(params[:tag]).order(updated_at: :desc).limit(10).offset(params[:offset] || 0)
     elsif params[:name].present?
-      @slangs = Slang.where("name ILIKE ?", "%#{params[:name]}%")
+      @slangs = Slang.where("name ILIKE ?", "%#{params[:name]}%").limit(10).offset(params[:offset] || 0)
     else
       # @slangs = policy_scope(Slang)
       @slangs = Slang.order(updated_at: :desc).limit(10).offset(params[:offset] || 0)
