@@ -19,8 +19,9 @@ class Api::V1::FavoritesController < Api::V1::BaseController
   private
 
   def set_slang
-    slang = Slang.find(params.permit(:slang_id)[:slang_id])
-    authorize slang
+    slang_id = params.permit(:slang_id)[:slang_id]
+    authorize slang_id, policy_class: FavoritePolicy
+    slang = Slang.find(slang_id)
     return slang
   end
 end
